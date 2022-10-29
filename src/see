@@ -1,0 +1,106 @@
+# 1 "GraphVisDump.cpp"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 1 "/usr/include/stdc-predef.h" 1 3 4
+# 1 "<command-line>" 2
+# 1 "GraphVisDump.cpp"
+
+
+
+void CloseHtmlLog ();
+FILE* SetHtmlLog ();
+
+FILE* HtmlLog = SetHtmlLog ();
+
+
+const char* GetImage (ArsList* list);
+void SetDot (FILE* dot);
+void SetNodesArr (FILE* dot, ArsList* list);
+
+
+
+
+
+
+void VisualDump (ArsList* list)
+    {
+    if (!list) { fprintf(HtmlLog, "Ebat, null ptr\n"); return;}
+
+    const char* graph = GetImage(list);
+
+
+    return;
+    }
+
+FILE* SetHtmlLog()
+    {
+    FILE* HtmlLog_ = fopen ("HtmlMaster.html", "wb");
+    setvbuf (HtmlLog_, NULL, _IONBF, 0);
+
+    fprintf (HtmlLog_, "<pre>");
+    fprintf (HtmlLog_, "<h1>My dear log</h1>\n");
+
+    atexit (CloseHtmlLog);
+    return HtmlLog_;
+    }
+
+void CloseHtmlLog()
+    {
+    fprintf(HtmlLog, "<h1> END OF LOG</h1>");
+
+    fclose(HtmlLog);
+    }
+
+
+const char* GetImage (ArsList* list)
+    {
+    if (!list) return NULL;
+
+    static int num_of_img = 0;
+
+    char image_name[MAX_GRAPH_NAME_LENGTH + 16] = {};
+    snprintf(image_name, MAX_GRAPH_NAME_LENGTH, "graphics/dot/list_num_%d.dot", ++num_of_img);
+    printf("(%s)", image_name);
+    $$
+    FILE* dot = fopen (image_name, "wb");
+    if (!dot) return NULL;
+
+    SetDot (dot);
+    SetNodesArr (dot, list);
+    }
+
+
+
+void SetDot (FILE* dot)
+    {
+    if (!dot) return;
+
+    fprintf (dot, "########################################################### %s\n", __func__);;
+    fprintf (dot, "graph \n{");
+
+    return;
+    }
+
+
+
+void SetNodesArr (FILE* dot, ArsList* list)
+    {
+    if (!dot) return;
+    if (!list) return;
+
+    fprintf (dot, "########################################################### %s\n", __func__);;
+    fprintf (dot, "\tsubgraph cluster_node_arr\n\t{\n\t\tbgcolor=lightgray\n");
+
+    node* node_arr = list->node_arr;
+    int nodes_number = list->nodes_number;
+
+
+    fprintf (dot, "\t\tzero_node  [shape = Mrecord label = \"Zero node | {<head> head %d} | {data %0X} | {<tail> tail %d}\"]", node_arr->next, node_arr->data, node_arr->prev)
+                                                                ;
+
+
+    for (int i = 1; i < nodes_number; i++)
+        {
+        fprintf (dot, "\t\tnode" "i" "  [shape = Mrecord label = \"node " "i" " | {<next"i"> next %d} | {data %0X} | {<prev" "i""> prev %d}\"]", node_arr + i->next, node_arr + i->data, node_arr + i->prev);;
+        }
+    }

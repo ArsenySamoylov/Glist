@@ -1,0 +1,43 @@
+########################################################### SetDot
+graph 
+{
+########################################################### SetNodesArr
+	rankdir = LR
+	
+	subgraph cluster_node_arr
+	{
+		bgcolor=lightgray
+		zero_node  [shape = Mrecord label = "Zero node | {<head> head 4} | {data DED} | {<tail> tail 3}"]
+
+		node1 [shape = Mrecord label = "node 1 | {<next1> next 2} | {data 14} | {<prev1> prev 4}"]
+		node2 [shape = Mrecord label = "node 2 | {<next2> next 3} | {data 15} | {<prev2> prev 1}"]
+		node3 [shape = Mrecord label = "node 3 | {<next3> next 0} | {data 19} | {<prev3> prev 2}"]
+		node4 [shape = Mrecord label = "node 4 | {<next4> next 1} | {data 5} | {<prev4> prev 0}"]
+
+		zero_node -- node1     [weight = 301,  style = "invis"]
+		node1 -- node2     [weight = 301,  style = "invis"]
+		node2 -- node3     [weight = 301,  style = "invis"]
+		node3 -- node4     [weight = 301,  style = "invis"]
+		node4 -- node5     [weight = 301,  style = "invis"]
+
+		zero_node:<head> -- node4
+		zero_node:<tail> -- node3
+
+		node1:<next1> -- node2
+		node1:<prev1> -- node4
+
+		node2:<next2> -- node3
+		node2:<prev2> -- node1
+
+		node3:<next3> -- zero_node
+		node3:<prev3> -- node2
+
+		node4:<next4> -- node1
+		node4:<prev4> -- zero_node
+	}
+########################################################### SetListStatus
+	LIST [shape = Mrecord label = "List status:  | \
+		{Capacity 4} | {Active nodes 5} | {SHUFFLED)}"]########################################################### SetEndDot
+
+
+}

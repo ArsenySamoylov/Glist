@@ -1,0 +1,15 @@
+########################################################### SetDot
+graph 
+{
+########################################################### SetNodesArr
+	subgraph cluster_node_arr
+	{
+		bgcolor=lightgray
+		zero_node  [shape = Mrecord label = "Zero node | {<head> head 1} | {data DED} | {<tail> tail 2}"]
+
+		node1 [shape = Mrecord label = "node 1 | {<next1> next 2} | {data 14} | {<prev1> prev 0}"]
+
+		zero_node -- node1     [weight = 301,  style = "invis"]
+		node1 -- node2     [weight = 301,  style = "invis"]
+
+		zero
