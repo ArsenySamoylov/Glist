@@ -1,0 +1,13 @@
+*.exe
+*.o
+*.ii
+*.s
+.vscode/
+*.json
+*.html
+*.png
+graphics/
+*.txt
+*.png
+
+G_WAGEN
